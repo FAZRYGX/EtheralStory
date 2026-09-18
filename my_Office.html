@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no, interactive-widget=overlays-content" />
+  <title>Roleplay AI Chatbot - Visual Novel</title>
+  
+  <link rel="stylesheet" href="style_off.css">
+  <script src="libs/howler.min.js"></script>
+      <script src="https://unpkg.com/dexie@3.2.4/dist/dexie.js"></script>
+</head>
+<body>
+  <div class="bg-container">
+    <img src="myOffice/office/Main_Office_Day.webp" id="background" alt="Latar Belakang">
+    <img src="myOffice/nagisa/Nagisa_00.png" id="sprite" alt="Karakter Sprite">
+
+    <!-- Toast Notification -->
+    <div id="toast-notification" class="toast-hidden"></div>
+
+    <!-- Window History (Header & Close Button) -->
+    <div class="history-box" id="historyBox" style="display: none;">
+      <div class="history-header">
+        <span>Riwayat Chat</span>
+        <button id="close-history-btn" title="Tutup History">✕</button>
+      </div>
+      <div id="historyContent"></div>
+    </div>
+
+    <!-- Navigation Window -->
+    <div class="nav-window">
+      <div id="burger-btn" title="Menu Navigasi"></div>
+      <div class="nav-menu" id="navMenu">
+        <div id="exit-btn" title="Keluar"></div>
+        <div id="history-btn" title="Riwayat Chat"></div>
+        <div id="setting-btn" title="Pengaturan Data"></div>
+      </div>
+    </div>
+
+    <!-- Choice Box Pop-up Visual Novel -->
+    <div id="choiceContainer" class="choice-container" style="display: none;">
+      <div class="choice-box">
+        <!-- Area Input dengan Tombol Kirim Kecil di Kanan Bawah -->
+        <div class="choice-input-wrapper">
+          <div id="choiceInput" class="choice-input-text" contenteditable="true" placeholder="Ketik pesan atau aksi (*aksimu*)..."></div>
+          <button id="choiceSendBtn" class="choice-send-icon-btn" title="Kirim">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Tombol Batal/Lupakan -->
+        <div class="choice-actions">
+          <button id="choiceCancelBtn" class="choice-btn cancel">Lupakan</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visual Novel Bubble Chat / Textbox -->
+    <div class="bubble-Chat" id="bubbleChat">
+      <div id="box">
+        <!-- Area Teks Utama -->
+        <div id="chatText" class="chat-text"></div>
+      </div>
+      
+      <!-- Box Nama Character/User -->
+      <div id="name">
+        <div class="name-box">
+          <span id="speakerName">Kirifuji Nagisa</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VN Data Modal (Export/Import/Reset) -->
+  <div id="vn-data-modal" class="vn-modal-overlay" style="display: none;">
+    <div class="vn-modal-content">
+      <h3>Pengaturan Data (<span id="modal-char-name">Karakter</span>)</h3>
+      <div class="vn-modal-actions">
+        <button id="vn-export-btn" class="vn-modal-btn">Export Chat</button>
+        <button id="vn-import-trigger-btn" class="vn-modal-btn">Import Chat</button>
+        <input type="file" id="vn-import-file-input" accept=".json" style="display: none;">
+        <button id="vn-reset-btn" class="vn-modal-btn danger">Hapus Chat</button>
+      </div>
+      <button id="vn-close-data-btn" class="vn-modal-close">Tutup</button>
+    </div>
+  </div>
+
+  <!-- Load Modul JS -->
+  <script type="module" src="script_off.js"></script>
+</body>
+</html>
