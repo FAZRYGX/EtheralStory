@@ -1,0 +1,484 @@
+:root {
+  color-scheme: only light;
+}
+
+@font-face {
+  font-family: 'pop';
+  src: url('font/NotoSansKR-Regular-Hestia.otf') format('opentype');
+}
+
+body {
+  font-family: 'pop', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#background {
+  object-fit: cover;
+  position: fixed;
+  height: auto;
+  min-height:100s;
+  width: auto;
+  left: 55%;
+  translate:0px -5%;
+  transform: translate(-50%,0px)
+}
+
+#sprite {
+  object-fit: cover;
+  position: fixed;
+  height: 600px;
+  width: auto;
+  left:50%;
+  translate:0px 30%;
+  transform: translate(-50%,0px)
+}
+
+.bg-container {
+  width: 100vh;
+  height: 100vh;
+  background-color: #000;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Navigasi & Lipatan Burger */
+.nav-window {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  width: 25px;
+  height: fit-content;
+  background-color: white;
+  right: 2%;
+  top: 2%;
+  gap: 8px;
+  padding: 5px;
+  border-radius: 5px;
+  z-index: 20;
+  transition: all 0.3s ease-out;
+  box-sizing: content-box;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, opacity 0.2s ease-out;
+  max-height: 200px;
+  opacity: 1;
+  width: 100%;
+}
+
+.nav-menu.collapsed {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  padding: 0;
+}
+
+.nav-window > div:not(.nav-menu),
+.nav-menu > div {
+  background-color: rgba(48, 68, 76, 1);
+  width: 25px;
+  height: 25px;
+  min-width: 25px;
+  min-height: 25px;
+  flex-shrink: 0;
+  cursor: pointer;
+  mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+}
+
+#burger-btn { mask-image: url("img/burger.png"); -webkit-mask-image: url("img/burger.png"); }
+#exit-btn { mask-image: url("img/exit.png"); -webkit-mask-image: url("img/exit.png"); }
+#setting-btn { mask-image: url("img/setting.png"); -webkit-mask-image: url("img/setting.png"); }
+#history-btn { mask-image: url("img/history.png"); -webkit-mask-image: url("img/history.png"); }
+
+/* Bubble Chat Utama */
+.bubble-Chat {
+  display: flex;
+  position: fixed;
+  aspect-ratio: 2.018/1;
+  width: 85%;
+  max-width: 800px;
+  background-color: rgba(255, 255, 255, 0.9);
+  bottom: 7%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  border-radius: 0px 20px 20px 20px;
+  justify-content: center;
+  align-content: center;
+  padding: 12px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.bubble-Chat #box {
+  width: 100%;
+  height: 100%;
+  border-radius: 0px 18px 18px 18px;
+  border: 1px dashed black;
+  position: relative;
+  overflow: hidden;
+}
+
+#name {
+  position: absolute;
+  background-color: rgba(48, 68, 76, 1);
+  width: fit-content;
+  height: auto;
+  left: 0%;
+  top: -33px;
+  border-radius: 4px 4px 0px 0px;
+  font-size: 18px;
+  padding: 6px 16px;
+  border: 0px;
+}
+
+.name-box span {
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.chat-text {
+  position: absolute;
+  inset: 10px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #222;
+  overflow-y: auto;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  outline: none;
+}
+
+/* Container Pop-up Pilihan VN */
+.choice-container {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.choice-box {
+  width: 85%;
+  max-width: 500px;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.choice-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.choice-input-text {
+  width: 100%;
+  min-height: 90px;
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px 45px 10px 10px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #222;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.choice-input-text[placeholder]:empty:before {
+  content: attr(placeholder);
+  color: #888;
+}
+
+/* Tombol Kirim Kecil Kanan Bawah */
+.choice-send-icon-btn {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: 32px;
+  height: 32px;
+  background-color: #30444c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  z-index: 2;
+}
+
+.choice-send-icon-btn:hover {
+  background-color: #1e2c32;
+  transform: scale(1.05);
+}
+
+.choice-send-icon-btn:active {
+  transform: scale(0.95);
+}
+
+/* Tombol Lupakan */
+.choice-actions {
+  display: flex;
+  flex-direction: column;
+}
+
+.choice-btn.cancel {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #30444c;
+  color: #30444c;
+  transition: all 0.2s ease;
+}
+
+.choice-btn.cancel:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Window History & Close Button */
+.history-box {
+  position: fixed;
+  height: 80%;
+  width: 85%;
+  max-width: 800px;
+  background-color: rgba(255, 255, 255, 0.95);
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  z-index: 30;
+  padding: 15px 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #ccc;
+  font-weight: bold;
+  color: #30444c;
+  flex-shrink: 0;
+}
+
+#historyContent {
+  flex: 1;
+  overflow-y: auto;
+}
+
+#close-history-btn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  color: #30444c;
+  cursor: pointer;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+#close-history-btn:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.h-msg {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.h-msg.user {
+  flex-direction: row-reverse;
+}
+
+.h-msg img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.h-msg div {
+  background-color: #f0f0f0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  max-width: 75%;
+  font-size: 13px;
+  word-break: break-word;
+}
+
+.h-msg.user div {
+  background-color: #d0e8ff;
+  color: #003366;
+}
+
+/* Notification & Modals */
+#toast-notification {
+  position: fixed;
+  bottom: 32%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 100;
+  pointer-events: none;
+}
+
+#toast-notification.toast-hidden { opacity: 0; }
+#toast-notification.toast-visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+#toast-notification.toast-success { background-color: #e6f4ea; color: #137333; border: 1px solid #ceead6; }
+#toast-notification.toast-error { background-color: #fce8e6; color: #c5221f; border: 1px solid #fad2cf; }
+
+.chat-text .action-text {
+  color: #7f8c8d;
+  font-style: italic;
+}
+
+.vn-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 150;
+}
+
+.vn-modal-content {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 360px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.vn-modal-content h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #30444c;
+}
+
+.vn-modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vn-modal-btn {
+  padding: 10px;
+  border: 1px solid #30444c;
+  background-color: transparent;
+  color: #30444c;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.vn-modal-btn.danger {
+  border-color: #ff4d4d;
+  color: #ff4d4d;
+}
+
+.vn-modal-close {
+  align-self: flex-end;
+  padding: 6px 12px;
+  border: none;
+  background-color: #30444c;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.S-animation{
+	animation:shake-normal 0.3s 1 ease
+	}
+
+.S-happy-animation{
+	animation:shake-normal 0.3s 3 ease
+	}
+	
+.S-angry-animation{
+	animation:shake-angry 0.9s 1 ease
+	}
+	
+.S-sad-animation{
+	animation:shake-sad 0.6s 1 ease
+	}
+	
+@keyframes shake-normal {
+	0%{translate:0 30%}
+	60%{translate:0 27%}
+	100%{translate:0 30%}
+	}
+	
+@keyframes shake-angry {
+	0%{translate:0 30%}
+	15%{translate:0 27%}
+	90%{translate:0 27%}
+	100%{translate:0 30%}
+	}
+@keyframes shake-sad {
+	0%{translate:0 30%}
+	20%{translate:0 33%}
+	100%{translate:0 33%}
+	}
+
+.h-msg.user img {
+  display: none !important;
+}
+
+/* Untuk avatar bot di dalam riwayat history */
+.h-msg.bot img {
+  width: 40px; /* atau sesuaikan dengan ukuran avatar kamu */
+  height: 40px;
+  object-fit: cover;
+  object-position: center; /* Memastikan titik fokus gambar ada di tengah */
+  border-radius: 50%; /* Opsional: jika ingin tampilan membulat */
+}
+
+/* Jika merujuk pada bubble bot di chat utama (script.js) */
+.bot-bubble img {
+  width: 38px;
+  height: 38px;
+  object-fit: cover;
+  object-position: center;
+}
